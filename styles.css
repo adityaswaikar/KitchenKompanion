@@ -67,7 +67,7 @@ body {
     align-items: center;
     gap: 8px;
 
-    font-size: 14px;
+    font-size: 16px;
     padding: 10px 0;
 }
 
@@ -255,7 +255,7 @@ body {
     border: none;
     border-radius: 20px;
     padding: 8px 30px;
-    font-size: 14px; 
+    font-size: 16px;
     cursor: pointer;
     margin: 15px auto;
     display: block;
@@ -263,7 +263,7 @@ body {
 }
 
 .recipe-meta {
-    font-size: 14px;
+    font-size: 16px;
     color: #6b6b6b;
     list-style: disc;
     padding-left: 20px;

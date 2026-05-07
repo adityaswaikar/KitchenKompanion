@@ -62,7 +62,7 @@
 .kitchen-card {
     display: flex;
     flex-direction: column;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .kitchen-card-name {
@@ -109,7 +109,7 @@
 
 .kitchen-detail-label {
     display: block;
-    font-size: 14px;
+    font-size: 16px;
     color: #6b6b6b;
 }
 

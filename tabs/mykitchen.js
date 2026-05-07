@@ -67,12 +67,12 @@ window.renderMyKitchenTab = function (content) {
                         <div class="kitchen-detail-row">
                             <div class="kitchen-detail-label">Date Added</div>
                             <div class="kitchen-detail-value" data-detail="added"></div>
-                            <input type="text" data-detail="added"/>
+                            <input type="date" data-detail="added"/>
                         </div>
                         <div class="kitchen-detail-row">
                             <div class="kitchen-detail-label">Expiration Date</div>
                             <div class="kitchen-detail-value" data-detail="expires"></div>
-                            <input type="text" data-detail="expires"/>
+                            <input type="date" data-detail="expires"/>
                         </div>
                         <div class="kitchen-detail-row">
                             <div class="kitchen-detail-label">Category</div>
@@ -137,11 +137,11 @@ window.renderMyKitchenTab = function (content) {
                         </div>
                         <div class="kitchen-detail-row">
                             <div class="kitchen-detail-label">Date Added</div>
-                            <input type="text" data-detail="addAdded"/>
+                            <input type="date" data-detail="addAdded"/>
                         </div>
                         <div class="kitchen-detail-row">
                             <div class="kitchen-detail-label">Expiration Date</div>
-                            <input type="text" data-detail="addExpires"/>
+                            <input type="date" data-detail="addExpires"/>
                         </div>
                         <div class="kitchen-detail-row">
                             <div class="kitchen-detail-label">Category</div>
@@ -193,6 +193,26 @@ window.renderMyKitchenTab = function (content) {
 
     let isEditing = false;
     let currItem = null;
+
+    function toDateInputValue(dateValue) {
+        const date = new Date(dateValue);
+        if (Number.isNaN(date.getTime())) return "";
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+    }
+
+    function toDisplayDate(dateValue) {
+        if (!dateValue) return "";
+        const date = new Date(`${dateValue}T00:00:00`);
+        if (Number.isNaN(date.getTime())) return "";
+        return date.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+        });
+    }
 
     const detailFields = {
         name: content.querySelector('[data-detail="name"]'),
@@ -302,8 +322,8 @@ window.renderMyKitchenTab = function (content) {
         currItem.name = inputFields.name.value;
         currItem.quantity = Number(inputFields.quantity.value);
         currItem.unit = inputFields.unit.value;
-        currItem.added = inputFields.added.value;
-        currItem.expires = inputFields.expires.value;
+        currItem.added = toDisplayDate(inputFields.added.value);
+        currItem.expires = toDisplayDate(inputFields.expires.value);
         currItem.category = inputFields.category.value;
         currItem.dietaryTags = [...content.querySelectorAll(".edit-dietary-tags input:checked")].map(cb => cb.value);
 
@@ -326,8 +346,8 @@ window.renderMyKitchenTab = function (content) {
 
         inputFields.name.value = currItem.name;
         inputFields.quantity.value = currItem.quantity;
-        inputFields.added.value = currItem.added;
-        inputFields.expires.value = currItem.expires;
+        inputFields.added.value = toDateInputValue(currItem.added);
+        inputFields.expires.value = toDateInputValue(currItem.expires);
         inputFields.unit.value = currItem.unit;
         inputFields.category.value = currItem.category;
 
@@ -341,7 +361,7 @@ window.renderMyKitchenTab = function (content) {
 
         content.querySelectorAll(".edit-dietary-tags input").forEach(cb => cb.disabled = false);
         content.querySelectorAll(".edit-dietary-tags input").forEach(cb => {
-            cb.checked = currItem.dietaryTags.includes(cb.value);
+            cb.checked = (currItem.dietaryTags || []).includes(cb.value);
         });
         content.querySelector('[data-detail="dietaryTags"]').hidden = true;
         content.querySelector(".edit-dietary-tags").hidden = false;
@@ -374,8 +394,8 @@ window.renderMyKitchenTab = function (content) {
             name: addFields.name.value,
             quantity: Number(addFields.quantity.value),
             unit: addFields.unit.value,
-            added: addFields.added.value,
-            expires: addFields.expires.value,
+            added: toDisplayDate(addFields.added.value),
+            expires: toDisplayDate(addFields.expires.value),
             category: addFields.category.value,
             dietaryTags: [...content.querySelectorAll(".add-dietary-tags input:checked")].map(cb => cb.value),
         };
