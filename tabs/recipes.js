@@ -33,14 +33,18 @@ window.renderRecipesTab = function (content) {
             </div>
 
             <div class = "recipes-grid" id = "recipes-grid">
-                ${recipes.map((recipe, index) => `
+                ${recipes.map((recipe, index) => {
+                    const hasAllergens = recipe.allergens && recipe.allergens.length > 0;
+                    const allergenLabel = hasAllergens ? recipe.allergens.join(", ") : "";
+                    return `
                     <div class="recipe-card" data-recipe-index="${index}" data-category="${recipe.category}">
+                        ${hasAllergens ? `<div class="recipe-card-allergen-badge" title="${allergenLabel}">⚠ ${allergenLabel}</div>` : ""}
                         <div class="recipe-card-content">
                             <h3 class="recipe-card-name">${recipe.name}</h3>
                             <p class="recipe-card-time">${recipe.cookTime}</p>
                         </div>
-                    </div>
-                `).join("")}
+                    </div>`;
+                }).join("")}
             </div>
 
             <button class="recipes-add-btn">

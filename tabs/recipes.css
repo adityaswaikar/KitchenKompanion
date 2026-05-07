@@ -88,11 +88,31 @@
     align-content: start;
 }
 
+/* Allergen badge on recipe cards */
+.recipe-card-allergen-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    background: #fff3cd;
+    color: #7a4f00;
+    border: 1px solid #f5c842;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 6px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* Cards for recipes */
 .recipe-card {
     min-height: 176px;
     box-sizing: border-box;
     padding: 20px 16px;
+    position: relative;
     border: 1px solid #ddd6cc;
     border-radius: 12px;
     background: #fff;
