@@ -16,10 +16,9 @@
     }
 
     const renderers = {
-        inventoryinfo: () => window.renderInventoryInfoTab?.(content),
         mykitchen: () => window.renderMyKitchenTab?.(content),
         grocerylist: () => window.renderGroceryListTab?.(content),
-        recipes: () => window.renderRecipesTab?.(content), // Added by Spencer 2/27/2026
+        recipes: () => window.renderRecipesTab?.(content),
     }
 
     function setActiveButton(tabName) {
@@ -68,5 +67,5 @@
         });
     });
 
-    renderTab("inventoryinfo");
+    renderTab("mykitchen");
 })();

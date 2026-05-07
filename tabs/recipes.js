@@ -1,10 +1,10 @@
 // hardcoded example recipes for recipes
 window.recipes = [
-    { name: "Chicken Fried Rice", category: "Dinner", ingredients: ["Chicken", "Rice", "Eggs", "Soy Sauce"], cookTime: "20 mins" },
-    { name: "Pasta Carbonara", category: "Dinner", ingredients: ["Pasta", "Eggs", "Cheese", "Bacon"], cookTime: "25 mins" },
-    { name: "Tomato Soup", category: "Lunch", ingredients: ["Tomatoes", "Cream", "Onion", "Garlic"], cookTime: "30 mins" },
-    { name: "Avocado Toast", category: "Breakfast", ingredients: ["Bread", "Avocado", "Egg", "Salt"], cookTime: "10 mins" },
-    { name: "Trail Mix", category: "Snack", ingredients: ["Nuts", "Dried Fruit", "Chocolate Chips"], cookTime: "5 mins" },
+    { name: "Chicken Fried Rice", category: "Dinner", ingredients: ["Chicken", "Rice", "Eggs", "Soy Sauce"], cookTime: "20 mins", allergens: ["Gluten-Free"] },
+    { name: "Pasta Carbonara", category: "Dinner", ingredients: ["Pasta", "Eggs", "Cheese", "Bacon"], cookTime: "25 mins", allergens: [] },
+    { name: "Tomato Soup", category: "Lunch", ingredients: ["Tomatoes", "Cream", "Onion", "Garlic"], cookTime: "30 mins", allergens: ["Vegetarian", "Gluten-Free"] },
+    { name: "Avocado Toast", category: "Breakfast", ingredients: ["Bread", "Avocado", "Egg", "Salt"], cookTime: "10 mins", allergens: ["Vegetarian"] },
+    { name: "Trail Mix", category: "Snack", ingredients: ["Nuts", "Dried Fruit", "Chocolate Chips"], cookTime: "5 mins", allergens: ["Vegan", "Gluten-Free"] },
 ];
 
 window.renderRecipesTab = function (content) {
@@ -73,6 +73,17 @@ window.renderRecipesTab = function (content) {
                             <label for="recipe-ingredients" class="recipes-label">Ingredients (comma-separated)</label>
                             <textarea id="recipe-ingredients" class="recipes-textarea"></textarea>
                         </div>
+                        <div class="recipes-form-group">
+                            <label class="recipes-label">Allergen / Dietary Tags</label>
+                            <div class="recipe-allergen-tags" id="add-allergen-tags">
+                                <label><input type="checkbox" value="Vegan"> Vegan</label>
+                                <label><input type="checkbox" value="Vegetarian"> Vegetarian</label>
+                                <label><input type="checkbox" value="Gluten-Free"> Gluten-Free</label>
+                                <label><input type="checkbox" value="Dairy-Free"> Dairy-Free</label>
+                                <label><input type="checkbox" value="Nut-Free"> Nut-Free</label>
+                                <label><input type="checkbox" value="Organic"> Organic</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="recipes-modal-buttons">
                         <button class="recipes-modal-add" type="button">Add Recipe</button>
@@ -96,6 +107,10 @@ window.renderRecipesTab = function (content) {
                         <div class="recipes-detail-section">
                             <h3>Ingredients</h3>
                             <ul id="recipe-detail-ingredients"></ul>
+                        </div>
+                        <div class="recipes-detail-section">
+                            <h3>Allergen / Dietary Tags</h3>
+                            <p id="recipe-detail-allergens"></p>
                         </div>
                     </div>
                     <div class="recipes-modal-buttons">
@@ -131,6 +146,17 @@ window.renderRecipesTab = function (content) {
                         <div class="recipes-form-group">
                             <label for="recipe-edit-ingredients" class="recipes-label">Ingredients (comma-separated)</label>
                             <textarea id="recipe-edit-ingredients" class="recipes-textarea"></textarea>
+                        </div>
+                        <div class="recipes-form-group">
+                            <label class="recipes-label">Allergen / Dietary Tags</label>
+                            <div class="recipe-allergen-tags" id="edit-allergen-tags">
+                                <label><input type="checkbox" value="Vegan"> Vegan</label>
+                                <label><input type="checkbox" value="Vegetarian"> Vegetarian</label>
+                                <label><input type="checkbox" value="Gluten-Free"> Gluten-Free</label>
+                                <label><input type="checkbox" value="Dairy-Free"> Dairy-Free</label>
+                                <label><input type="checkbox" value="Nut-Free"> Nut-Free</label>
+                                <label><input type="checkbox" value="Organic"> Organic</label>
+                            </div>
                         </div>
                     </div>
                     <div class="recipes-modal-buttons">
@@ -190,6 +216,7 @@ window.renderRecipesTab = function (content) {
         cooktimeInput.value = "";
         categoryInput.value = "Dinner";
         ingredientsInput.value = "";
+        content.querySelectorAll("#add-allergen-tags input").forEach(cb => cb.checked = false);
     });
 
 
@@ -204,12 +231,14 @@ window.renderRecipesTab = function (content) {
             content.querySelector("#recipe-detail-name").textContent = recipe.name;
             content.querySelector("#recipe-detail-category").textContent = recipe.category;
             content.querySelector("#recipe-detail-cooktime").textContent = recipe.cookTime;
-            
+            content.querySelector("#recipe-detail-allergens").textContent =
+                (recipe.allergens && recipe.allergens.length) ? recipe.allergens.join(", ") : "None";
+
             const ingredientsList = content.querySelector("#recipe-detail-ingredients");
             ingredientsList.innerHTML = recipe.ingredients
                 .map(ing => `<li>${ing}</li>`)
                 .join("");
-            
+
             detailModal.style.display = "flex";
         });
     });
@@ -227,7 +256,10 @@ window.renderRecipesTab = function (content) {
             editCooktimeInput.value = recipe.cookTime;
             editCategoryInput.value = recipe.category;
             editIngredientsInput.value = recipe.ingredients.join(", ");
-            
+            content.querySelectorAll("#edit-allergen-tags input").forEach(cb => {
+                cb.checked = (recipe.allergens || []).includes(cb.value);
+            });
+
             detailModal.style.display = "none";
             editModal.style.display = "flex";
             editNameInput.focus();
@@ -275,7 +307,8 @@ window.renderRecipesTab = function (content) {
                 return;
             }
 
-            window.recipes[currentRecipeIndex] = { name, category, cookTime, ingredients };
+            const allergens = [...content.querySelectorAll("#edit-allergen-tags input:checked")].map(cb => cb.value);
+            window.recipes[currentRecipeIndex] = { name, category, cookTime, ingredients, allergens };
             editModal.style.display = "none";
             window.renderRecipesTab(content);
         }
@@ -321,7 +354,8 @@ window.renderRecipesTab = function (content) {
             return;
         }
 
-        window.recipes.push({ name, category, cookTime, ingredients });
+        const allergens = [...content.querySelectorAll("#add-allergen-tags input:checked")].map(cb => cb.value);
+        window.recipes.push({ name, category, cookTime, ingredients, allergens });
 
         window.renderRecipesTab(content);
     });
