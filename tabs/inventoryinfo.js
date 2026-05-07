@@ -66,6 +66,7 @@ window.renderInventoryInfoTab = () => {
       .map(({ item, count }) => ({
           text: `${item.name} - Only ${item.quantity} left`,
           color: count <= 1 ? "#d32f2f" : "#F4B400",
+          item,
       }));
 
   const fillList = (data, containerId) => {
@@ -90,9 +91,8 @@ window.renderInventoryInfoTab = () => {
 
   const groceryBtn = content.querySelector("#grocery-btn");
   groceryBtn.addEventListener("click", () => {
-      lowData.forEach(({ text }) => {
-          const name = text.split(" -")[0].replace("• ", "").trim();
-          window.addToGroceryList?.(name);
+      lowData.forEach(({ item }) => {
+          window.addToGroceryList?.(item.name, "1", item.unit);
       });
       document.querySelector('[data-tab="grocerylist"]')?.click();
   });

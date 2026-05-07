@@ -15,9 +15,15 @@
     text-align: center;
 }
 
-.grocery-input,
+.grocery-form,
 .grocery-list {
     width: min(100%, 500px);
+}
+
+.grocery-form {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px;
+    gap: 8px;
 }
 
 .grocery-input {
@@ -41,7 +47,8 @@
 }
 
 .grocery-add-btn {
-    width: min(100%, 320px);
+    grid-column: 1 / -1;
+    width: 100%;
     min-height: 56px;
     border: 0;
     border-radius: 12px;
@@ -51,7 +58,16 @@
     font: inherit;
 }
 
-/* List settings for each item (different from card setups in recipes and my kitchen) */
+.grocery-message {
+    width: min(100%, 500px);
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #fff4e5;
+    color: #7a3f00;
+}
+
+/* List settings for grocery items (different from card setups in recipes and my kitchen) */
 .grocery-list {
     list-style: none;
     margin: 0;
@@ -61,29 +77,41 @@
 }
 
 .grocery-item {
-    padding: 6px 0;
-    display: flex;
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
     align-items: center;
-    justify-content: space-between;
     gap: 12px;
     border-bottom: 1px solid #ddd6cc;
 }
 
+.grocery-item-details {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
 .grocery-item-text {
-    position: relative;
+    font-weight: 600;
     cursor: pointer;
 }
 
-.grocery-strike-line {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 0%;
-    height: 2px;
-    background: #d32f2f;
-    transition: width 0.3s ease;
+.grocery-item-quantity {
+    color: #6b6b6b;
 }
 
+.grocery-item.is-complete .grocery-item-text {
+    text-decoration: line-through;
+    text-decoration-color: #d32f2f;
+    text-decoration-thickness: 2px;
+}
+
+.grocery-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.grocery-edit-btn,
 .grocery-delete-btn {
     min-height: 36px;
     padding: 0 12px;

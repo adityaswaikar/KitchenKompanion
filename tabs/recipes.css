@@ -168,7 +168,8 @@
 /* Edit/Create popout modal */
 .recipes-add-modal,
 .recipes-detail-modal,
-.recipes-edit-modal {
+.recipes-edit-modal,
+.recipes-confirm-modal {
     position: absolute;
     inset: 0;
     padding: 20px;
@@ -206,7 +207,7 @@
 
 .recipes-label,
 .recipes-detail-section h3 {
-    font-size: 14px;
+    font-size: 16px;
     color: #6b6b6b;
     font-weight: 400;
 }
@@ -243,6 +244,18 @@
     margin: 5px 0;
 }
 
+.recipes-form-message {
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #fff4e5;
+    color: #7a3f00;
+}
+
+.recipes-confirm-copy {
+    margin: 0 0 16px;
+}
+
 .recipes-modal-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -260,7 +273,9 @@
 .recipes-detail-edit,
 .recipes-detail-delete,
 .recipes-edit-save,
-.recipes-edit-cancel {
+.recipes-edit-cancel,
+.recipes-confirm-delete,
+.recipes-confirm-cancel {
     width: 100%;
     min-height: 44px;
     border: 0;
