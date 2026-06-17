@@ -16,11 +16,9 @@
     }
 
     const renderers = {
-        text: () => window.renderTextTab?.(content),
-        lr: () => window.renderLRTab?.(content),
-        profile: () => window.renderProfileTab?.(content),
-        text: () => window.renderTextTab?.(content),
-        todo: () => window.renderTodoTab?.(content),
+        mykitchen: () => window.renderMyKitchenTab?.(content),
+        grocerylist: () => window.renderGroceryListTab?.(content),
+        recipes: () => window.renderRecipesTab?.(content),
     }
 
     function setActiveButton(tabName) {
@@ -69,5 +67,5 @@
         });
     });
 
-    renderTab("text");
+    renderTab("mykitchen");
 })();

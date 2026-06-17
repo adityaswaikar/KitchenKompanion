@@ -6,6 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Kitchen Kompanion</title>
         <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="tabs/mykitchen.css" />
+        <link rel="stylesheet" href="tabs/recipes.css" />
+        <link rel="stylesheet" href="tabs/grocerylist.css" />
     </head>
     <body>
         <div id="device">
@@ -13,40 +16,22 @@
                 <main id="content"></main>
 
                 <nav id="nav">
-                    <!-- text -->
-                    <button class="tab-btn" data-tab="text">
-                        <img src="assets/icons/text.svg" alt="Text" />
-                        <span>Text</span>
-                    </button>
-
-                    <!-- lr -->
-                    <button class="tab-btn" data-tab="lr">
-                        <img src="assets/icons/lr.svg" alt="LR" />
-                        <span>LR</span>
-                    </button>
-
-                    <!-- colors -->
-                    <button class="tab-btn" data-tab="colors">
-                        <img src="assets/icons/colors.svg" alt="Colors" />
-                        <span>Colors</span>
-                    </button>
-
                     <!-- profile -->
-                    <button class="tab-btn" data-tab="profile">
-                        <img src="assets/icons/profile.svg" alt="Profile" />
-                        <span>Profile</span>
+                    <button class="tab-btn" data-tab="mykitchen">
+                        <img src="assets/icons/mykitchen.svg" alt="My Kitchen" />
+                        <span>My Kitchen</span>
                     </button>
 
                     <!-- choices -->
-                    <button class="tab-btn" data-tab="choices">
-                        <img src="assets/icons/choices.svg" alt="Choices" />
-                        <span>Choices</span>
+                    <button class="tab-btn" data-tab="recipes">
+                        <img src="assets/icons/recipes.svg" alt="Recipes" />
+                        <span>Recipes</span>
                     </button>
 
                     <!-- todo -->
-                    <button class="tab-btn" data-tab="todo">
-                        <img src="assets/icons/todo.svg" alt="Todo" />
-                        <span>Todo</span>
+                    <button class="tab-btn" data-tab="grocerylist">
+                        <img src="assets/icons/grocerylist.svg" alt="Grocery List" />
+                        <span>Grocery List</span>
                     </button>
 
                 </nav>
@@ -54,13 +39,11 @@
         </div>
 
         <!-- scripts -->
-        <script src="tabs/text.js"></script>
-        <script src="tabs/lr.js"></script>
-        <script src="tabs/colors.js"></script>
-        <script src="tabs/profile.js"></script>
-        <script src="tabs/choices.js"></script>
-        <script src="tabs/todo.js"></script>
+        <script src="tabs/mykitchen.js"></script>
+        <script src="tabs/recipes.js"></script>
+        <script src="tabs/grocerylist.js"></script>
         <script src="app.js"></script>
+        <script src="keyboard.js"></script>
 
     </body>
 </html>
